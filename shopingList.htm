@@ -1,0 +1,11 @@
+<div ng-controller="shopingListCtrl">
+	<ul>
+		<li ng-repeat="x in products">
+		{{ x }}
+		<span ng-click="removeItem($index)">&times;</span>
+		</li>
+	</ul>
+	<input type="text" ng-model="addMe">
+	<button ng-click="addItem()">Add</button>
+	<h4>Wripe in the input field to add the items</h4>
+</div>
