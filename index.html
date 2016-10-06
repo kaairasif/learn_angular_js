@@ -61,8 +61,8 @@ app.controller("shopingListCtrl", function($scope){
         $scope.products.push($scope.addMe);
    }
 
-   $scope.removeItem = function(x){
-        $scope.products.spilce(x, 1);
+   $scope.removeItem = function(x) {
+        $scope.products.splice(x, 1);
    }
 
 });
