@@ -13,6 +13,7 @@
 <a href="#london">London</a>
 <a href="#paris">Paris</a>
 <a href="#shopingList">shopingList</a>
+<a href="#filter">filter</a>
 <div ng-view></div>
 
 <script>
@@ -42,28 +43,62 @@ app.config(function($routeProvider) {
     .when("/shopingList", {
         templateUrl : "shopingList.htm",
         controller  : "shopingListCtrl"
+    })
+    .when("/filter", {
+        templateUrl : "filter.htm",
+        controller  : "filterCtrl"
     });
 });
 
 app.controller("londonCtrl", function($scope){
-    $scope.msg = "I love london";  
-
+    $scope.msg = "I love london";
 });
 app.controller("parisCtrl", function($scope){
-    $scope.msg = "I love paris";
+    $scope.msg = "I love paris and efel tower";
 });
 
 app.controller("shopingListCtrl", function($scope){
    // $scope.msg = "My shoping list";
    $scope.products = ["Milk", "Bread", "Cheese"];
-   
    $scope.addItem = function() {
         $scope.products.push($scope.addMe);
    }
-
    $scope.removeItem = function(x) {
         $scope.products.splice(x, 1);
    }
+});
+
+app.controller("filterCtrl", function($scope){
+     
+
+    $scope.namesOnly = [
+        'Jani',
+        'Carl',
+        'Margareth',
+        'Hege',
+        'Joe',
+        'Gustav',
+        'Birgit',
+        'Mary',
+        'Kai'
+    ];
+
+
+     $scope.names = [
+        {name:'Jani',country:'Norway'},
+        {name:'Carl',country:'Sweden'},
+        {name:'Margareth',country:'England'},
+        {name:'Hege',country:'Norway'},
+        {name:'Joe',country:'Denmark'},
+        {name:'Gustav',country:'Sweden'},
+        {name:'Birgit',country:'Denmark'},
+        {name:'Mary',country:'England'},
+        {name:'Kai',country:'Norway'}
+        ];
+
+    $scope.orderByMe = function(x) {
+        $scope.myOrderBy = x;
+    } 
 
 });
 
