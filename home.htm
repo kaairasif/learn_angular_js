@@ -1,35 +1,66 @@
 <!DOCTYPE html>
 <html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+<head>
+    <title>Learn angular js</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+  
 
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
 <body ng-app="myApp">
+ <div class="wrapper">
 
-<p><a href="#/">Main</a></p>
+ <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
 
-<a href="#red">Red</a>
-<a href="#green">Green</a>
-<a href="#blue">Blue</a>
-<a href="#london">London</a>
-<a href="#paris">Paris</a>
-<a href="#shopingList">shopingList</a>
-<a href="#filter">filter</a>
-<a href="#service">service</a>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="#Home">Home</a></li>
+        <li><a href="#red">Red</a></li>
+        <li><a href="#select">Select</a></li>
+        <li><a href="#blue">Blue</a></li>
+        <li><a href="#london">London</a></li>
+        <li><a href="#paris">Paris</a></li>
+        <li><a href="#shopingList">shopingList</a></li>
+        <li><a href="#filter">filter</a></li>
+        <li><a href="#service">service</a></li>
+        <li><a href="#sql">sql</a></li>
+        <li><a href="#dom">Dom</a></li>
+        <li><a href="#events">Events</a></li>
+      </ul>  
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
 <div ng-view></div>
 
+</div>
 <script>
 var app = angular.module("myApp", ["ngRoute"]);
 app.config(function($routeProvider) {
     $routeProvider
-    .when("/", {
-        templateUrl : "main.htm"
+    .when("/home", {
+        templateUrl : "home.htm"
     })
     .when("/red", {
         templateUrl : "red.htm",
         controller: "timeOut"
     })
-    .when("/green", {
-        templateUrl : "green.htm"
+    .when("/select", {
+        templateUrl : "select.htm"
     })
     .when("/blue", {
         templateUrl : "blue.htm"
@@ -53,6 +84,17 @@ app.config(function($routeProvider) {
     .when("/service", {
         templateUrl : "service.htm",
         controller  : "serviceCtrl"
+    })
+    .when("/sql", {
+        templateUrl : "sql.htm",
+        controller  : "sqlCtrl"
+    })
+    .when("/dom", {
+        templateUrl : "dom.htm",
+    })
+    .when("/events", {
+        templateUrl : "events.htm",
+        controller : "eventsCtrl"
     });
 });
 
@@ -84,8 +126,6 @@ app.controller("parisCtrl", function($scope, $http){
     $http.get("welcome.htm").then( function(response){
         $scope.myWelcome = response.data;
     });
-
-
 });
 
 app.controller("shopingListCtrl", function($scope){
@@ -162,7 +202,51 @@ app.controller('serviceCtrl', function($scope, hexafy){
     $scope.counts = [255, 251, 200];
 });
 
+app.controller('httpCtrl', function($scope, $http){
+    // $http({
+    //     method : "GET",
+    //     url : "welcomee.htm"
+    // }).then(function mySuccess(response){
+    //     $scope.myWelcome = response.data;
+    // }, function myError(response){
+    //     $scope.myWelcome = "something went wrong!";
+    // });
 
+    // $http.get("welcome.htm")
+    // .then( function(response){
+    //    $scope.content = response.data;
+    //    $scope.statuscode = response.status;
+    //    $scope.statustext = response.statustext;
+    //}); 
+
+    $http.get("customers.php").then(function(response) {
+        $scope.myData = response.data.records;
+    });
+});
+
+app.controller('mySelect', function($scope) {
+   $scope.cars = {
+        car01 : {brand : "Ford", model : "Mustang", color : "red"},
+        car02 : {brand : "Fiat", model : "500", color : "white"},
+        car03 : {brand : "Volvo", model : "XC90", color : "black"}
+        };
+});
+
+// sql
+app.controller('sqlCtrl', function($scope, $http) {
+     $http.get("customers_mysql.php")
+    .then(function (response) {
+        $scope.names = response.data.records;
+    });
+});
+
+// DOM
+app.controller('eventsCtrl', function($scope) {
+    $scope.showMe = false;
+    $scope.myFunc = function() {
+        $scope.showMe = !$scope.showMe;
+    }
+});
 </script>
 
 </body>

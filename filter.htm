@@ -1,12 +1,12 @@
 <div ng-controller="filterCtrl">    
 	<p><input type="text" ng-model="namesFilter"></p>
-	<ul>
-		<li ng-repeat="y in namesOnly | filter:namesFilter ">
+	<ul class="list-group">
+		<li class="list-group-item" ng-repeat="y in namesOnly | filter:namesFilter ">
 			{{y}}
 		</li>
 	</ul>
 	<br/>
-	<table border="1" width="100%">
+	<table class="table table-bordered">
 		<tr>
 			<th ng-click="orderByMe('name')">Name</th>
 			<th ng-click="orderByMe('country')">Country</th>
