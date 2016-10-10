@@ -15,5 +15,12 @@
 			<td>{{x.name}}</td>
 			<td>{{x.country}}</td>
 		</tr>
-	</table>
+	</table> <br />
+
+	<ul>
+		<li ng-repeat="m in customNames">
+			{{ m | oddUpperCase }}
+		</li>
+	</ul>
 </div>
+

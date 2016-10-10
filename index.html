@@ -14,6 +14,7 @@
 <a href="#paris">Paris</a>
 <a href="#shopingList">shopingList</a>
 <a href="#filter">filter</a>
+<a href="#service">service</a>
 <div ng-view></div>
 
 <script>
@@ -48,6 +49,10 @@ app.config(function($routeProvider) {
     .when("/filter", {
         templateUrl : "filter.htm",
         controller  : "filterCtrl"
+    })
+    .when("/service", {
+        templateUrl : "service.htm",
+        controller  : "serviceCtrl"
     });
 });
 
@@ -95,8 +100,6 @@ app.controller("shopingListCtrl", function($scope){
 });
 
 app.controller("filterCtrl", function($scope){
-     
-
     $scope.namesOnly = [
         'Jani',
         'Carl',
@@ -108,7 +111,6 @@ app.controller("filterCtrl", function($scope){
         'Mary',
         'Kai'
     ];
-
     $scope.names = [
         {name:'Jani',country:'Norway'},
         {name:'Carl',country:'Sweden'},
@@ -124,7 +126,40 @@ app.controller("filterCtrl", function($scope){
     $scope.orderByMe = function(x) {
         $scope.myOrderBy = x;
     } 
+    $scope.customNames = ['Jani', 'Carl', 'Margareth', 'Hege', 'Joe', 'Gustav', 'Birgit', 'Mary', 'Kai'];
+});
+// custom fileter
+app.filter('oddUpperCase', function(){
+    return function(m) {
+        var i, c, txt="";
+        for(i=0; i < m.length; i++){
+            c = m[i];
+            if( i % 2 == 0){
+                c = c.toUpperCase();
+            }
+            txt += c;
+        }
+        return txt;
+    }
+});
 
+//custom filter and services
+app.filter('hexadecimal', ['hexafy', function(hexafy){
+    return function(x){
+        return hexafy.myFunc(x)
+    }
+}]);
+
+// custom service
+app.service('hexafy', function(){
+    this.myFunc = function(x){
+        return x.toString(16);
+    }
+});
+
+app.controller('serviceCtrl', function($scope, hexafy){
+    $scope.hex = hexafy.myFunc(255);
+    $scope.counts = [255, 251, 200];
 });
 
 
