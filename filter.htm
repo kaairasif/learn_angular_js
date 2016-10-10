@@ -1,7 +1,4 @@
-<div ng-controller="filterCtrl">
-
-
-    
+<div ng-controller="filterCtrl">    
 	<p><input type="text" ng-model="namesFilter"></p>
 	<ul>
 		<li ng-repeat="y in namesOnly | filter:namesFilter ">
@@ -18,10 +15,5 @@
 			<td>{{x.name}}</td>
 			<td>{{x.country}}</td>
 		</tr>
-
 	</table>
-
-
-
-
 </div>

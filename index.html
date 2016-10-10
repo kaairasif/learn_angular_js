@@ -24,7 +24,8 @@ app.config(function($routeProvider) {
         templateUrl : "main.htm"
     })
     .when("/red", {
-        templateUrl : "red.htm"
+        templateUrl : "red.htm",
+        controller: "timeOut"
     })
     .when("/green", {
         templateUrl : "green.htm"
@@ -50,11 +51,36 @@ app.config(function($routeProvider) {
     });
 });
 
-app.controller("londonCtrl", function($scope){
-    $scope.msg = "I love london";
+app.controller("interval", function($scope, $interval){
+    $scope.theTime =  new Date().toLocaleTimeString();
+
+    $interval(function(){
+        $scope.theTime = new Date().toLocaleTimeString();
+    }, 1000); 
+ 
 });
-app.controller("parisCtrl", function($scope){
+
+app.controller("timeOut", function($scope, $timeout){
+    $scope.myHeader = "Hello world!";
+    $timeout(function(){
+        $scope.myHeader = "How are you today"; 
+    }, 2000);
+});
+
+
+app.controller("londonCtrl", function($scope, $location){
+    $scope.msg = "I love london";
+    $scope.myUrl = $location.absUrl();
+
+});
+app.controller("parisCtrl", function($scope, $http){
     $scope.msg = "I love paris and efel tower";
+
+    $http.get("welcome.htm").then( function(response){
+        $scope.myWelcome = response.data;
+    });
+
+
 });
 
 app.controller("shopingListCtrl", function($scope){
@@ -83,8 +109,7 @@ app.controller("filterCtrl", function($scope){
         'Kai'
     ];
 
-
-     $scope.names = [
+    $scope.names = [
         {name:'Jani',country:'Norway'},
         {name:'Carl',country:'Sweden'},
         {name:'Margareth',country:'England'},
