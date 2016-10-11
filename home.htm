@@ -39,6 +39,8 @@
         <li><a href="#sql">sql</a></li>
         <li><a href="#dom">Dom</a></li>
         <li><a href="#events">Events</a></li>
+        <li><a href="#form">Form</a></li>
+        <li><a href="#validation">Validation</a></li>
       </ul>  
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -95,6 +97,17 @@ app.config(function($routeProvider) {
     .when("/events", {
         templateUrl : "events.htm",
         controller : "eventsCtrl"
+    })
+    .when("/form", {
+        templateUrl : "form.htm",
+        controller : "formCtrl"
+    })
+    .when("/validation", {
+        templateUrl : "validation.htm",
+        //controller : "validationCtrl"
+    })
+    .otherwise({
+        template : "<h1>None</h1><p>Nothing has been selected,</p>"
     });
 });
 
@@ -247,6 +260,20 @@ app.controller('eventsCtrl', function($scope) {
         $scope.showMe = !$scope.showMe;
     }
 });
+
+// FORM
+app.controller('formCtrl', function($scope) {
+   $scope.firstname = "Asif";
+
+   $scope.master = {firstName:"Jhon", lastName: "Doe"}
+
+   $scope.reset = function() {
+    $scope.user = angular.copy($scope.master);
+   }
+   $scope.reset();
+
+});
+
 </script>
 
 </body>
